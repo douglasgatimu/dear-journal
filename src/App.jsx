@@ -4,7 +4,7 @@ import NewEntry from "./NewEntry";
 
 function App() {
   let baseEndPoint = "https://jsonplaceholder.typicode.com/posts";
-  // let baseEndPoint = "http://localhost:3001/entries";
+
   const [entries, setEntries] = useState([]);
   const [showNewEntryForm, setShowNewEntryForm] = useState(false);
   const [loadingStatus, setLoadingStatus] = useState("unloaded");
@@ -17,24 +17,20 @@ function App() {
   function requestEntries() {
     const newStatus = "loading";
     setLoadingStatus(newStatus);
-    console.log("first-fetch:", newStatus);
 
     fetch(baseEndPoint)
       .then((response) => response.json())
       .then((data) => {
-        setTimeout(() => {
-          let newData = data.map((entry) => ({
-            ...entry,
-            title: entry.title.charAt(0).toUpperCase() + entry.title.slice(1),
+        let newData = data.map((entry) => ({
+          ...entry,
+          title: entry.title.charAt(0).toUpperCase() + entry.title.slice(1),
 
-            important: false,
-          }));
-          setEntries(newData);
+          important: false,
+        }));
+        setEntries(newData);
 
-          const completedStatus = "loaded";
-          setLoadingStatus(completedStatus);
-          console.log("first-fetch:", completedStatus);
-        }, 500);
+        const completedStatus = "loaded";
+        setLoadingStatus(completedStatus);
       });
   }
 
@@ -51,23 +47,20 @@ function App() {
     })
       .then((res) => res.json())
       .then((entryObj) => {
-        console.log(entryObj.title + " saved successfully");
         setEntries((prevEntries) => [...prevEntries, entryObj]);
 
         setTimeout(() => {
           const completedStatus = "success";
           setSubmissionStatus(completedStatus);
-          console.log("submissionStatus:", completedStatus);
         }, 2000);
 
         setTimeout(() => {
           const defaultStatus = "idle";
           setSubmissionStatus(defaultStatus);
-          console.log("submissionStatus:", defaultStatus);
         }, 5000);
       })
       .catch((error) => {
-        console.error("Error saving entry:", error);
+        console.error("Error saving entry!:", error);
       });
   }
 
@@ -89,10 +82,10 @@ function App() {
         "Content-Type": "application/json",
       },
     })
-      .then((res) =>  res.json())
-      .then(() => { 
-        
-        console.log(`Entry #${entryId} deleted successfully`) 
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(`Entry #${entryId} deleted successfully`);
+        console.log(data);
       })
       .catch((error) => {
         console.error("Error deleting entry:", error);
@@ -101,11 +94,6 @@ function App() {
     const updatedEntries = entries.filter((entry) => entry.id !== entryId);
 
     setEntries(updatedEntries);
-  }
-
-
-  function editEntry(entryId) {
-    
   }
 
   return (
@@ -124,7 +112,7 @@ function App() {
       {loadingStatus === "loading" && (
         <div className="entries w-2/3 my-10">
           <h1 className="font-bold text-black text-xl w-2/3 text-center">
-            Loading....
+            Loading Entries....
           </h1>
         </div>
       )}
@@ -134,7 +122,6 @@ function App() {
           entries={entries}
           onMarkImportant={markImportant}
           onDeleteEntry={deleteEntry}
-          onEditEntry={editEntry}
         />
       )}
     </>

@@ -5,7 +5,6 @@ const Entry = ({
   important,
   onMarkImportant,
   onDeleteEntry,
-  onEditEntry
 }) => {
   return (
     <div className="entry w-2/3 bg-white-100 p-1 flex flex-col gap-2">
@@ -18,27 +17,20 @@ const Entry = ({
             onMarkImportant(id);
           }}
         >
-          {important ? "Marked Important✅" : "Mark Important"}
+          {important ? "Marked Important✅" : "Mark Important⭐"}
         </button>
       </div>
       <p className="text-xm">{body}</p>
-      <button
-        className="bg-red-100 border border-2 p-1 font-bold rounded-sm cursor-pointer"
-        onClick={() => {
-          onDeleteEntry(id);
-        }}
-      >
-        Delete Entry 🗑️
-      </button>
-
-            <button
-        className="bg-red-100 border border-2 p-1 font-bold rounded-sm cursor-pointer"
-        onClick={() => {
-          onEditEntry(id);
-        }}
-      >
-        Edit Entry.. 🖋️ 
-      </button>
+      <div className="manage flex items-end">
+        <button
+          className="bg-red-100 border border-2 p-1 font-bold rounded-sm cursor-pointer"
+          onClick={() => {
+            onDeleteEntry(id);
+          }}
+        >
+          Delete Entry 🗑️
+        </button>
+      </div>
     </div>
   );
 };

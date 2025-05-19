@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 
 devREADME.md 
+stash.js
+mock/
