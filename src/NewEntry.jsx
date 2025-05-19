@@ -9,6 +9,7 @@ const NewEntry = ({ onAddEntry, submissionStatus }) => {
     if (!title || !body) return;
 
     onAddEntry({ title, body });
+
     setTitle("");
     setBody("");
   };
@@ -17,6 +18,7 @@ const NewEntry = ({ onAddEntry, submissionStatus }) => {
     <div className="new-entry-form border border-gray-400 shadow-sm rounded-none p-2">
       <form onSubmit={handleSubmit} className="the-form flex flex-col gap-2">
         <input
+          disabled={submissionStatus === "submitting"}
           onChange={(e) => setTitle(e.target.value)}
           id="title"
           value={title}
@@ -25,6 +27,7 @@ const NewEntry = ({ onAddEntry, submissionStatus }) => {
         />
 
         <textarea
+          disabled={submissionStatus === "submitting"}
           onChange={(e) => setBody(e.target.value)}
           id="entry-body"
           value={body}
@@ -42,7 +45,11 @@ const NewEntry = ({ onAddEntry, submissionStatus }) => {
             : "Save your Entry"}
         </button>
       </form>
-      {submissionStatus == "success" && <h1 className="border border-2 font-bold text-center text-2xl text-green-500">Success! ✅</h1>}
+      {submissionStatus == "success" && (
+        <h1 className="border border-2 font-bold text-center text-2xl text-green-500">
+          Success! ✅
+        </h1>
+      )}
     </div>
   );
 };

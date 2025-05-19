@@ -1,6 +1,6 @@
 import Entry from "./Entry";
 
-function Entries({ entries, onMarkImportant }) {
+function Entries({ entries, onMarkImportant, onDeleteEntry }) {
   return (
     <div className="entries w-2/3 flex flex-col gap-2 items-end divide-y-4 divide-gray-300">
       {!entries.length ? (
@@ -14,6 +14,7 @@ function Entries({ entries, onMarkImportant }) {
             key={entry.id}
             onMarkImportant={onMarkImportant}
             important={entry.important}
+            onDeleteEntry={onDeleteEntry}
           />
         ))
       )}

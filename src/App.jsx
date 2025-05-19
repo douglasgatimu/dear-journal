@@ -3,8 +3,8 @@ import Entries from "./Entries";
 import NewEntry from "./NewEntry";
 
 function App() {
-  // let baseEndPoint = "https://jsonplaceholder.typicode.com/posts";
-  let baseEndPoint = "http://localhost:3001/entries";
+  let baseEndPoint = "https://jsonplaceholder.typicode.com/posts";
+  // let baseEndPoint = "http://localhost:3001/entries";
   const [entries, setEntries] = useState([]);
   const [showNewEntryForm, setShowNewEntryForm] = useState(false);
   const [loadingStatus, setLoadingStatus] = useState("unloaded");
@@ -34,7 +34,7 @@ function App() {
           const completedStatus = "loaded";
           setLoadingStatus(completedStatus);
           console.log("first-fetch:", completedStatus);
-        }, 5000);
+        }, 500);
       });
   }
 
@@ -61,9 +61,9 @@ function App() {
         }, 2000);
 
         setTimeout(() => {
-          const completedStatus = "idle";
-          setSubmissionStatus(completedStatus);
-          console.log("submissionStatus:", completedStatus);
+          const defaultStatus = "idle";
+          setSubmissionStatus(defaultStatus);
+          console.log("submissionStatus:", defaultStatus);
         }, 5000);
       })
       .catch((error) => {
@@ -82,6 +82,27 @@ function App() {
     setShowNewEntryForm((prev) => !prev);
   };
 
+  function deleteEntry(entryId) {
+    fetch(`${baseEndPoint}/${entryId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) =>  res.json())
+      .then(() => { 
+        
+        console.log(`Entry #${entryId} deleted successfully`) 
+      })
+      .catch((error) => {
+        console.error("Error deleting entry:", error);
+      });
+
+    const updatedEntries = entries.filter((entry) => entry.id !== entryId);
+
+    setEntries(updatedEntries);
+  }
+
   return (
     <>
       <div className="new-entry w-1/3 p-2">
@@ -89,7 +110,7 @@ function App() {
           onClick={toggleNewEntryForm}
           className="cursor-pointer bg-cyan-500 font-bold text-black border border-gray-400 shadow-sm rounded-none text-center w-full"
         >
-          Show/hide new entry form
+          Show/hide new journal entry form
         </button>
         {showNewEntryForm && (
           <NewEntry onAddEntry={addEntry} submissionStatus={submissionStatus} />
@@ -102,9 +123,13 @@ function App() {
           </h1>
         </div>
       )}
-      
+
       {loadingStatus === "loaded" && (
-        <Entries entries={entries} onMarkImportant={markImportant} />
+        <Entries
+          entries={entries}
+          onMarkImportant={markImportant}
+          onDeleteEntry={deleteEntry}
+        />
       )}
     </>
   );
