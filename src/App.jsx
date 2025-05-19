@@ -103,6 +103,11 @@ function App() {
     setEntries(updatedEntries);
   }
 
+
+  function editEntry(entryId) {
+    
+  }
+
   return (
     <>
       <div className="new-entry w-1/3 p-2">
@@ -129,6 +134,7 @@ function App() {
           entries={entries}
           onMarkImportant={markImportant}
           onDeleteEntry={deleteEntry}
+          onEditEntry={editEntry}
         />
       )}
     </>

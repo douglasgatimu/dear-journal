@@ -5,6 +5,7 @@ const Entry = ({
   important,
   onMarkImportant,
   onDeleteEntry,
+  onEditEntry
 }) => {
   return (
     <div className="entry w-2/3 bg-white-100 p-1 flex flex-col gap-2">
@@ -33,10 +34,10 @@ const Entry = ({
             <button
         className="bg-red-100 border border-2 p-1 font-bold rounded-sm cursor-pointer"
         onClick={() => {
-          onDeleteEntry(id);
+          onEditEntry(id);
         }}
       >
-        Edit Entry 
+        Edit Entry.. 🖋️ 
       </button>
     </div>
   );
