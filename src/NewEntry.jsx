@@ -1,5 +1,5 @@
 import { useState } from "react";
-const NewEntry = ({ onAddEntry }) => {
+const NewEntry = ({ onAddEntry, submissionStatus }) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
@@ -26,7 +26,7 @@ const NewEntry = ({ onAddEntry }) => {
 
         <textarea
           onChange={(e) => setBody(e.target.value)}
-          id="entry-content"
+          id="entry-body"
           value={body}
           placeholder="Type away..."
           className="w-full pt-4 px-3 pb-3 bg-white border border-gray-300 shadow-sm rounded-none h-40 resize-none whitespace-pre-wrap overflow-hidden"
@@ -34,12 +34,15 @@ const NewEntry = ({ onAddEntry }) => {
 
         <button
           disabled={!title || !body}
-          className="cursor-pointer bg-cyan-500 font-bold text-black border border-gray-400 shadow-sm rounded-none text-center w-full
+          className="cursor-pointer bg-cyan-500 font-bold text-black border border-gray-400 shadow-sm rounded-none text-center w-full disabled:cursor-not-allowed
 "
         >
-          Save your Entry
+          {submissionStatus === "submitting"
+            ? "🚀Adding entry..."
+            : "Save your Entry"}
         </button>
       </form>
+      {submissionStatus == "success" && <h1 className="border border-2 font-bold text-center text-2xl text-green-500">Success! ✅</h1>}
     </div>
   );
 };

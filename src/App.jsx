@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Entries from "./Entries";
 import NewEntry from "./NewEntry";
-import { data } from "autoprefixer";
 
 function App() {
   // let baseEndPoint = "https://jsonplaceholder.typicode.com/posts";
@@ -9,64 +8,75 @@ function App() {
   const [entries, setEntries] = useState([]);
   const [showNewEntryForm, setShowNewEntryForm] = useState(false);
   const [loadingStatus, setLoadingStatus] = useState("unloaded");
- 
-  
+  const [submissionStatus, setSubmissionStatus] = useState("idle");
 
   useEffect(() => {
     requestEntries();
-
   }, []);
 
   function requestEntries() {
-    setLoadingStatus("Loading");
+    const newStatus = "loading";
+    setLoadingStatus(newStatus);
+    console.log("first-fetch:", newStatus);
+
     fetch(baseEndPoint)
       .then((response) => response.json())
       .then((data) => {
-        let newData = data.map(entry => ({
-          ...entry,
+        setTimeout(() => {
+          let newData = data.map((entry) => ({
+            ...entry,
             title: entry.title.charAt(0).toUpperCase() + entry.title.slice(1),
 
-          important: false,
-        }));
-        setEntries(newData);
-        setLoadingStatus("Loaded");
+            important: false,
+          }));
+          setEntries(newData);
+
+          const completedStatus = "loaded";
+          setLoadingStatus(completedStatus);
+          console.log("first-fetch:", completedStatus);
+        }, 5000);
       });
   }
 
+  function addEntry(newEntry) {
+    const newStatus = "submitting";
+    setSubmissionStatus(newStatus);
 
-
-
-
-function addEntry(newEntry) {
-  setLoadingStatus("Loading")
-  
-  fetch(baseEndPoint, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(newEntry),
-  })
-    .then((res) => res.json())
-    .then((entryObj) => {
-      console.log(entryObj.title + " saved successfully");
-      setEntries(prevEntries => [...prevEntries, entryObj]);
+    fetch(baseEndPoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newEntry),
     })
-    .catch((error) => {
-      console.error("Error saving entry:", error);
-    });
-    setLoadingStatus("Loaded")
-}
+      .then((res) => res.json())
+      .then((entryObj) => {
+        console.log(entryObj.title + " saved successfully");
+        setEntries((prevEntries) => [...prevEntries, entryObj]);
 
+        setTimeout(() => {
+          const completedStatus = "success";
+          setSubmissionStatus(completedStatus);
+          console.log("submissionStatus:", completedStatus);
+        }, 2000);
 
-function markImportant(entryId) {
-  const updatedEntries = entries.map(entry => 
-    entry.id === entryId ? {...entry, important: true} : entry
+        setTimeout(() => {
+          const completedStatus = "idle";
+          setSubmissionStatus(completedStatus);
+          console.log("submissionStatus:", completedStatus);
+        }, 5000);
+      })
+      .catch((error) => {
+        console.error("Error saving entry:", error);
+      });
+  }
 
-      )
-      setEntries(updatedEntries)
-}
-
+  function markImportant(entryId) {
+    const updatedEntries = entries.map((entry) =>
+      entry.id === entryId ? { ...entry, important: true } : entry,
+    );
+    setEntries(updatedEntries);
+  }
 
   const toggleNewEntryForm = () => {
     setShowNewEntryForm((prev) => !prev);
@@ -81,10 +91,21 @@ function markImportant(entryId) {
         >
           Show/hide new entry form
         </button>
-        {showNewEntryForm && <NewEntry onAddEntry={addEntry} />}
+        {showNewEntryForm && (
+          <NewEntry onAddEntry={addEntry} submissionStatus={submissionStatus} />
+        )}
       </div>
-
-      <Entries entries={entries} onMarkImportant={markImportant}/>
+      {loadingStatus === "loading" && (
+        <div className="entries w-2/3 my-10">
+          <h1 className="font-bold text-black text-xl w-2/3 text-center">
+            Loading....
+          </h1>
+        </div>
+      )}
+      
+      {loadingStatus === "loaded" && (
+        <Entries entries={entries} onMarkImportant={markImportant} />
+      )}
     </>
   );
 }
