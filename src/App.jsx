@@ -83,9 +83,8 @@ function App() {
       },
     })
       .then((res) => res.json())
-      .then((data) => {
+      .then(() => {
         console.log(`Entry #${entryId} deleted successfully`);
-        console.log(data);
       })
       .catch((error) => {
         console.error("Error deleting entry:", error);
