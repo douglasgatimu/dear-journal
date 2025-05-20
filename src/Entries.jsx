@@ -7,7 +7,7 @@ function Entries({ entries, onMarkImportant, onDeleteEntry }) {
       {!entries.length ? (
         <h1>No Created Entries</h1>
       ) : (
-        entries.map((entry) => (
+        entries.slice().reverse().map((entry) => (
           <Entry
             title={entry.title}
             body={entry.body}
