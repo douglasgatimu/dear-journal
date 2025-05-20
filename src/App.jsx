@@ -102,7 +102,7 @@ function App() {
           onClick={toggleNewEntryForm}
           className="cursor-pointer bg-cyan-50 font-bold text-black border border-gray-400 shadow-sm rounded-md p-2 my-2 text-center w-full"
         >
-          {showNewEntryForm? "Hide Form" : "Create New Entry...🖋️"}
+          {showNewEntryForm ? "Hide Form" : "Create New Entry...🖋️"}
         </button>
         {showNewEntryForm && (
           <NewEntry onAddEntry={addEntry} submissionStatus={submissionStatus} />
