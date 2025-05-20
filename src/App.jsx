@@ -100,9 +100,9 @@ function App() {
       <div className="new-entry w-1/3 p-2">
         <button
           onClick={toggleNewEntryForm}
-          className="cursor-pointer bg-cyan-500 font-bold text-black border border-gray-400 shadow-sm rounded-none text-center w-full"
+          className="cursor-pointer bg-cyan-50 font-bold text-black border border-gray-400 shadow-sm rounded-md p-2 my-2 text-center w-full"
         >
-          Show/hide new journal entry form
+          {showNewEntryForm? "Hide Form" : "Create New Entry...🖋️"}
         </button>
         {showNewEntryForm && (
           <NewEntry onAddEntry={addEntry} submissionStatus={submissionStatus} />

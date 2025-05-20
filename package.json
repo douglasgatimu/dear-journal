@@ -5,9 +5,7 @@
   "type": "module",
   "scripts": {
     "format": "prettier --write \"src/**/*.{js,jsx}\"",
-    "dev": "concurrently \"npm:frontend\" \"npm:backend\"",
-    "frontend": "vite",
-    "backend": "json-server --watch ./mock/db.json --port 3001",
+    "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"

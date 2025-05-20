@@ -26,3 +26,6 @@ dist-ssr
 devREADME.md 
 stash.js
 mock/
+*.jpg
+*.png
+*.Identifier

@@ -2,7 +2,8 @@ import Entry from "./Entry";
 
 function Entries({ entries, onMarkImportant, onDeleteEntry }) {
   return (
-    <div className="entries w-2/3 flex flex-col gap-2 items-end divide-y-4 divide-gray-300">
+    <div className="entries w-2/3 flex flex-col gap-2 items-end divide-y-4 divide-gray-300 h-full overflow-y-auto shadow-xm">
+      <h1 className="w-4/5 text-center font-bold text-black text-2xl">Your Saved Thoughts</h1>
       {!entries.length ? (
         <h1>No Created Entries</h1>
       ) : (

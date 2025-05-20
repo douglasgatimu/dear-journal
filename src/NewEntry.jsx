@@ -15,7 +15,7 @@ const NewEntry = ({ onAddEntry, submissionStatus }) => {
   };
 
   return (
-    <div className="new-entry-form border border-gray-400 shadow-sm rounded-none p-2">
+    <div className="new-entry-form border border-gray-400 shadow-sm rounded-lg p-2">
       <form onSubmit={handleSubmit} className="the-form flex flex-col gap-2">
         <input
           disabled={submissionStatus === "submitting"}
@@ -23,7 +23,7 @@ const NewEntry = ({ onAddEntry, submissionStatus }) => {
           id="title"
           value={title}
           placeholder="Title"
-          className="w-full p-1 bg-white border border-gray-300 shadow-sm rounded-none"
+          className="w-full p-1 bg-white border border-gray-300 shadow-sm rounded-md"
         />
 
         <textarea
@@ -32,12 +32,12 @@ const NewEntry = ({ onAddEntry, submissionStatus }) => {
           id="entry-body"
           value={body}
           placeholder="Type away..."
-          className="w-full pt-4 px-3 pb-3 bg-white border border-gray-300 shadow-sm rounded-none h-40 resize-none whitespace-pre-wrap overflow-hidden"
+          className="w-full pt-4 px-3 pb-3 bg-white border border-gray-300 shadow-sm rounded-md h-40 resize-none whitespace-pre-wrap overflow-hidden"
         />
 
         <button
           disabled={!title || !body}
-          className="cursor-pointer bg-cyan-500 font-bold text-black border border-gray-400 shadow-sm rounded-none text-center w-full disabled:cursor-not-allowed
+          className="cursor-pointer bg-cyan-500 font-bold text-black border border-gray-400 shadow-sm rounded-md text-center w-full disabled:cursor-not-allowed
 "
         >
           {submissionStatus === "submitting"
