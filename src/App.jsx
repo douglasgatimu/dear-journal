@@ -64,15 +64,12 @@ function App() {
       });
   }
 
-function toggleImportant(entryId) {
-  const updatedEntries = entries.map((entry) =>
-    entry.id === entryId
-      ? { ...entry, important: !entry.important }
-      : entry
-  );
-  setEntries(updatedEntries);
-}
-
+  function toggleImportant(entryId) {
+    const updatedEntries = entries.map((entry) =>
+      entry.id === entryId ? { ...entry, important: !entry.important } : entry,
+    );
+    setEntries(updatedEntries);
+  }
 
   const toggleNewEntryForm = () => {
     setShowNewEntryForm((prev) => !prev);

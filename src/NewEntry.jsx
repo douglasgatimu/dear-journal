@@ -13,38 +13,39 @@ const NewEntry = ({ onAddEntry, submissionStatus }) => {
   };
 
   return (
-    <div className="rounded-2xl shadow-md bg-white border border-gray-100 p-6 space-y-4">
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col gap-4"
-      >
+    <div className="border border-gray-300 p-4 rounded-lg max-w-xl mx-auto mt-4 bg-white space-y-4">
+      <h2 className="text-lg font-medium mb-2">What's on your mind?</h2>
+      <form onSubmit={handleSubmit} className="space-y-4">
         <input
           disabled={submissionStatus === "submitting"}
           onChange={(e) => setTitle(e.target.value)}
           id="title"
           value={title}
           placeholder="Title"
-          className="w-full p-2 bg-white border border-gray-300 shadow-sm rounded-md text-gray-700 text-sm focus:ring-2 focus:ring-blue-100 focus:outline-none disabled:opacity-50"
+          className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-gray-500 disabled:opacity-50"
         />
 
         <textarea
+          rows="4"
           disabled={submissionStatus === "submitting"}
           onChange={(e) => setBody(e.target.value)}
           id="entry-body"
           value={body}
           placeholder="Type away..."
-          className="w-full pt-4 px-3 pb-3 bg-white border border-gray-300 shadow-sm rounded-md h-40 resize-none text-sm text-gray-700 focus:ring-2 focus:ring-blue-100 focus:outline-none disabled:opacity-50"
+          className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-gray-500 disabled:opacity-50"
         />
 
-        <button
-          type="submit"
-          disabled={!title || !body || submissionStatus === "submitting"}
-          className="px-3 py-2 rounded-lg cursor-pointer bg-blue-100 text-blue-800 hover:bg-blue-100 text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {submissionStatus === "submitting"
-            ? "Adding entry..."
-            : "Save your Entry"}
-        </button>
+        <div className="flex justify-end">
+          <button
+            type="submit"
+            disabled={!title || !body || submissionStatus === "submitting"}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {submissionStatus === "submitting"
+              ? "Adding entry..."
+              : "Save Entry"}
+          </button>
+        </div>
       </form>
 
       {submissionStatus === "success" && (

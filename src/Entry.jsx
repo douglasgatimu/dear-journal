@@ -12,7 +12,9 @@ const Entry = ({
         <div className="text-xs text-gray-400">Entry ID: #{id}</div>
 
         <div className="flex items-center gap-2 justify-between">
-          <h3 className="text-xl font-semibold truncate max-w-[70%]">{title}</h3>
+          <h3 className="text-xl font-semibold truncate max-w-[70%]">
+            {title}
+          </h3>
           {important && (
             <span className="text-xs px-2 py-0.5 bg-yellow-200 text-yellow-800 rounded-full">
               Important
