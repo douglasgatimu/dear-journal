@@ -1,28 +1,31 @@
 import Entry from "./Entry";
 
-function Entries({ entries, onMarkImportant, onDeleteEntry }) {
+function Entries({ entries, onToggleImportant, onDeleteEntry }) {
   return (
-    <div className="entries w-2/3 flex flex-col gap-2 items-end divide-y-4 divide-gray-300 h-full overflow-y-auto shadow-xm">
-      <h1 className="w-4/5 text-center font-bold text-black text-2xl">
+    <div className="w-full px-6 py-4">
+      <h1 className="text-center font-bold text-black text-2xl mb-6">
         Your Saved Thoughts
       </h1>
+
       {!entries.length ? (
-        <h1>No Created Entries</h1>
+        <h2 className="text-center text-gray-500">No Created Entries</h2>
       ) : (
-        entries
-          .slice()
-          .reverse()
-          .map((entry) => (
-            <Entry
-              title={entry.title}
-              body={entry.body}
-              id={entry.id}
-              key={entry.id}
-              onMarkImportant={onMarkImportant}
-              important={entry.important}
-              onDeleteEntry={onDeleteEntry}
-            />
-          ))
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {entries
+            .slice()
+            .reverse()
+            .map((entry) => (
+              <Entry
+                key={entry.id}
+                id={entry.id}
+                title={entry.title}
+                body={entry.body}
+                important={entry.important}
+                onToggleImportant={onToggleImportant}
+                onDeleteEntry={onDeleteEntry}
+              />
+            ))}
+        </div>
       )}
     </div>
   );
